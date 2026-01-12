@@ -1,0 +1,96 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#f5f5f5"/>
+
+  <!-- 标题 -->
+  <text x="400" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">电气原理图</text>
+
+  <!-- 主电路 L1/L2/L3 -->
+  <line x1="50" y1="100" x2="150" y2="100" stroke="#333" stroke-width="2"/>
+  <line x1="50" y1="120" x2="150" y2="120" stroke="#333" stroke-width="2"/>
+  <line x1="50" y1="140" x2="150" y2="140" stroke="#333" stroke-width="2"/>
+
+  <!-- 相位标注 -->
+  <text x="30" y="105" font-size="12" fill="#666">L1</text>
+  <text x="30" y="125" font-size="12" fill="#666">L2</text>
+  <text x="30" y="145" font-size="12" fill="#666">L3</text>
+
+  <!-- QF1 主断路器 -->
+  <rect x="150" y="80" width="60" height="80" fill="#3498db" stroke="#333" stroke-width="2" data-component-id="QF1"/>
+  <text x="180" y="125" text-anchor="middle" font-size="14" fill="white" font-weight="bold">QF1</text>
+  <text x="180" y="175" text-anchor="middle" font-size="10" fill="#333">主断路器</text>
+
+  <!-- QF1 出线 -->
+  <line x1="210" y1="100" x2="280" y2="100" stroke="#333" stroke-width="2"/>
+  <line x1="210" y1="120" x2="280" y2="120" stroke="#333" stroke-width="2"/>
+  <line x1="210" y1="140" x2="280" y2="140" stroke="#333" stroke-width="2"/>
+
+  <!-- KM1 接触器 -->
+  <rect x="280" y="80" width="50" height="80" fill="#e74c3c" stroke="#333" stroke-width="2" data-component-id="KM1"/>
+  <text x="305" y="125" text-anchor="middle" font-size="14" fill="white" font-weight="bold">KM1</text>
+  <text x="305" y="175" text-anchor="middle" font-size="10" fill="#333">接触器</text>
+
+  <!-- KM1 出线到电机 -->
+  <line x1="330" y1="100" x2="450" y2="100" stroke="#333" stroke-width="2"/>
+  <line x1="330" y1="120" x2="450" y2="120" stroke="#333" stroke-width="2"/>
+  <line x1="330" y1="140" x2="450" y2="140" stroke="#333" stroke-width="2"/>
+
+  <!-- M1 电机 -->
+  <circle cx="480" cy="120" r="40" fill="#95a5a6" stroke="#333" stroke-width="2" data-component-id="M1"/>
+  <text x="480" y="125" text-anchor="middle" font-size="14" fill="white" font-weight="bold">M1</text>
+  <text x="480" y="180" text-anchor="middle" font-size="10" fill="#333">传送带电机</text>
+
+  <!-- 控制电路 -->
+  <line x1="50" y1="250" x2="100" y2="250" stroke="#333" stroke-width="2"/>
+  <text x="30" y="255" font-size="12" fill="#666">N</text>
+
+  <!-- QF2 控制电源断路器 -->
+  <rect x="100" y="230" width="40" height="40" fill="#f39c12" stroke="#333" stroke-width="2" data-component-id="QF2"/>
+  <text x="120" y="255" text-anchor="middle" font-size="12" fill="white" font-weight="bold">QF2</text>
+
+  <!-- 控制线路 -->
+  <line x1="140" y1="250" x2="250" y2="250" stroke="#333" stroke-width="2"/>
+  <line x1="250" y1="250" x2="250" y2="300" stroke="#333" stroke-width="2"/>
+
+  <!-- 启动按钮 -->
+  <circle cx="280" cy="300" r="15" fill="#52c41a" stroke="#333" stroke-width="2"/>
+  <text x="280" y="305" text-anchor="middle" font-size="10" fill="white">启动</text>
+
+  <!-- KM1 线圈 -->
+  <rect x="330" y="285" width="40" height="30" fill="#e74c3c" stroke="#333" stroke-width="1" opacity="0.5"/>
+  <text x="350" y="305" text-anchor="middle" font-size="10" fill="white">线圈</text>
+
+  <!-- 控制线路 -->
+  <line x1="250" y1="300" x2="265" y2="300" stroke="#333" stroke-width="2"/>
+  <line x1="295" y1="300" x2="330" y2="300" stroke="#333" stroke-width="2"/>
+  <line x1="370" y1="300" x2="400" y2="300" stroke="#333" stroke-width="2"/>
+  <line x1="400" y1="300" x2="400" y2="250" stroke="#333" stroke-width="2"/>
+  <line x1="400" y1="250" x2="450" y2="250" stroke="#333" stroke-width="2"/>
+
+  <!-- SQ1 位置传感器 -->
+  <rect x="450" y="230" width="50" height="40" fill="#2ecc71" stroke="#333" stroke-width="2" data-component-id="SQ1"/>
+  <text x="475" y="255" text-anchor="middle" font-size="12" fill="white" font-weight="bold">SQ1</text>
+  <text x="475" y="285" text-anchor="middle" font-size="10" fill="#333">传感器</text>
+
+  <!-- 信号输出 -->
+  <line x1="500" y1="250" x2="550" y2="250" stroke="#333" stroke-width="2"/>
+  <line x1="550" y1="250" x2="550" y2="350" stroke="#333" stroke-width="2"/>
+  <circle cx="550" cy="365" r="15" fill="#1890ff" stroke="#333" stroke-width="2"/>
+  <text x="550" y="370" text-anchor="middle" font-size="10" fill="white">PLC</text>
+
+  <!-- 图例 -->
+  <rect x="600" y="450" width="180" height="130" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="690" y="470" text-anchor="middle" font-size="12" font-weight="bold">图例</text>
+
+  <rect x="615" y="485" width="20" height="15" fill="#3498db"/>
+  <text x="645" y="497" font-size="10" fill="#333">主断路器</text>
+
+  <rect x="615" y="505" width="20" height="15" fill="#e74c3c"/>
+  <text x="645" y="517" font-size="10" fill="#333">接触器</text>
+
+  <circle cx="625" cy="530" r="8" fill="#95a5a6"/>
+  <text x="645" y="534" font-size="10" fill="#333">电机</text>
+
+  <rect x="615" y="542" width="20" height="15" fill="#2ecc71"/>
+  <text x="645" y="554" font-size="10" fill="#333">传感器</text>
+</svg>
