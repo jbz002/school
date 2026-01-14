@@ -9,11 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tweenjs/tween.js": "^25.0.0",
+    "antd": "^5.22.0",
+    "framer-motion": "^12.25.0",
+    "konva": "^9.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-konva": "^18.2.10",
+    "react-markdown": "^10.1.0",
     "react-router-dom": "^6.28.0",
-    "three": "^0.170.0",
-    "antd": "^5.22.0"
+    "three": "^0.170.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.0",

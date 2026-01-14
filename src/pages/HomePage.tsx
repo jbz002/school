@@ -36,19 +36,23 @@ function HomePage() {
             <Button type="primary" block>进入模块</Button>
           </Card>
 
-          <Card hoverable disabled>
+          <Card
+            hoverable
+            style={{ borderColor: '#52c41a' }}
+            onClick={() => navigate('/m3')}
+          >
             <Title level={4}>M3: 电路安装与检测实训</Title>
             <Paragraph type="secondary">虚拟接线 · 安全规范 · 错误演示</Paragraph>
-            <Button block disabled>即将推出</Button>
+            <Button type="primary" block>进入模块</Button>
           </Card>
 
-          <Card hoverable disabled>
+          <Card hoverable style={{ opacity: 0.6, cursor: 'not-allowed' }}>
             <Title level={4}>M4: PLC 控制基础</Title>
             <Paragraph type="secondary">I/O 点位 · 启停控制 · 状态反馈</Paragraph>
             <Button block disabled>即将推出</Button>
           </Card>
 
-          <Card hoverable disabled>
+          <Card hoverable style={{ opacity: 0.6, cursor: 'not-allowed' }}>
             <Title level={4}>M5: 故障模拟与排查</Title>
             <Paragraph type="secondary">故障生成 · 引导排查 · 评分反馈</Paragraph>
             <Button block disabled>即将推出</Button>

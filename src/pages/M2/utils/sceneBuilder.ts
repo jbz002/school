@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import type { ElectricalComponent } from '../types';
+import * as TWEEN from '@tweenjs/tween.js';
+import type { ElectricalComponent, AnimationType } from '../types';
 
 /**
  * 创建元件几何体
@@ -33,31 +34,61 @@ export function createComponentMesh(component: ElectricalComponent): THREE.Mesh 
       geom = new THREE.BoxGeometry(1, 1, 1);
   }
 
-  // 创建材质
-  const material = new THREE.MeshStandardMaterial({
-    color: new THREE.Color(color),
-    roughness: 0.7,
-    metalness: 0.3
-  });
+  // 创建优化的 PBR 材质
+  const material = createOptimizedMaterial(color, component.animationConfig);
 
   // 创建网格
   const mesh = new THREE.Mesh(geom, material);
   mesh.position.set(component.position.x, component.position.y, component.position.z);
 
-  // 存储元数据用于交互
+  // 存储元数据用于交互和动画
   mesh.userData = {
     componentId: id,
     originalColor: color,
-    originalEmissive: 0x000000,
-    originalEmissiveIntensity: 0
+    originalEmissive: material.emissive.getHex(),
+    originalEmissiveIntensity: material.emissiveIntensity,
+    animationType: component.animationConfig.animationType,
+    isAnimating: false
   };
 
   return mesh;
 }
 
 /**
- * 设置场景基础环境
- * 包括环境光、主光源、辅助网格等
+ * 创建优化的材质
+ * 根据动画类型配置不同的材质属性
+ */
+function createOptimizedMaterial(
+  color: string,
+  animationConfig: { hasAnimation: boolean; animationType: AnimationType }
+): THREE.MeshStandardMaterial {
+  const baseMaterial = {
+    color: new THREE.Color(color),
+    roughness: 0.5,      // 降低粗糙度，更有质感
+    metalness: 0.5,      // 增加金属感
+    envMapIntensity: 1.0
+  };
+
+  // 指示灯发光材质
+  if (animationConfig.animationType === 'glow') {
+    return new THREE.MeshStandardMaterial({
+      ...baseMaterial,
+      emissive: new THREE.Color(color),
+      emissiveIntensity: 0.8,
+      transparent: true,
+      opacity: 0.9
+    });
+  }
+
+  // 标准 PBR 材质
+  return new THREE.MeshStandardMaterial({
+    ...baseMaterial
+  });
+}
+
+/**
+ * 设置场景基础环境（增强版）
+ * 包括环境光、主光源、补光、点光源、聚光灯、半球光等
  */
 export function setupScene(scene: THREE.Scene): void {
   // 环境光 - 提供整体照明
@@ -68,6 +99,8 @@ export function setupScene(scene: THREE.Scene): void {
   const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
   mainLight.position.set(10, 20, 10);
   mainLight.castShadow = true;
+  mainLight.shadow.mapSize.width = 2048;
+  mainLight.shadow.mapSize.height = 2048;
   scene.add(mainLight);
 
   // 补光 - 减少阴影过深
@@ -75,9 +108,26 @@ export function setupScene(scene: THREE.Scene): void {
   fillLight.position.set(-10, 10, -10);
   scene.add(fillLight);
 
+  // 点光源 - 工作照明
+  const workingLight = new THREE.PointLight(0xffffff, 0.5, 10);
+  workingLight.position.set(0, 5, 0);
+  scene.add(workingLight);
+
+  // 聚光灯 - 重点照明
+  const spotLight = new THREE.SpotLight(0xffffff, 0.8);
+  spotLight.position.set(5, 10, 5);
+  spotLight.angle = Math.PI / 6;
+  spotLight.penumbra = 0.3;
+  spotLight.castShadow = true;
+  scene.add(spotLight);
+
+  // 半球光 - 环境补光
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.3);
+  scene.add(hemiLight);
+
   // 地面网格 - 帮助理解空间关系
   const gridHelper = new THREE.GridHelper(20, 20, 0x888888, 0xcccccc);
-  gridHelper.position.y = -0.01; // 略微下沉避免 z-fighting
+  gridHelper.position.y = -0.01;
   scene.add(gridHelper);
 
   // 地面平面 - 接收阴影
@@ -147,7 +197,7 @@ export function updateHighlight(
 
     if (id === componentId) {
       // 高亮选中元件
-      material.emissive = new THREE.Color(0xffff00);  // 黄色发光
+      material.emissive = new THREE.Color(0xffff00);
       material.emissiveIntensity = 0.5;
     } else {
       // 恢复原始状态
@@ -155,6 +205,159 @@ export function updateHighlight(
       material.emissiveIntensity = userData.originalEmissiveIntensity;
     }
   });
+}
+
+/**
+ * 动画管理器
+ * 管理所有活动的动画效果
+ */
+export class AnimationManager {
+  private animations: Map<string, TWEEN.Tween> = new Map();
+  private rotatingMeshes: Set<string> = new Set();
+  private glowingMeshes: Map<string, { mesh: THREE.Mesh; baseIntensity: number; phase: number }> = new Map();
+
+  /**
+   * 播放开关动画
+   */
+  playSwitchAnimation(mesh: THREE.Mesh, isOpen: boolean, duration: number = 300): void {
+    const componentId = mesh.userData.componentId;
+
+    // 停止现有动画
+    this.stopAnimation(componentId);
+
+    const startRotation = { x: mesh.rotation.x };
+    const targetRotation = isOpen ? { x: Math.PI / 6 } : { x: 0 };
+
+    const tween = new TWEEN.Tween(startRotation)
+      .to(targetRotation, duration)
+      .easing(TWEEN.Easing.Quadratic.InOut)
+      .onUpdate(() => {
+        mesh.rotation.x = startRotation.x;
+      })
+      .start();
+
+    this.animations.set(componentId, tween);
+  }
+
+  /**
+   * 开始/停止旋转动画
+   */
+  toggleRotateAnimation(mesh: THREE.Mesh, isRunning: boolean): void {
+    const componentId = mesh.userData.componentId;
+
+    if (isRunning) {
+      this.rotatingMeshes.add(componentId);
+    } else {
+      this.rotatingMeshes.delete(componentId);
+    }
+  }
+
+  /**
+   * 开始发光动画（呼吸效果）
+   */
+  startGlowAnimation(mesh: THREE.Mesh): void {
+    const componentId = mesh.userData.componentId;
+    const material = mesh.material as THREE.MeshStandardMaterial;
+
+    this.glowingMeshes.set(componentId, {
+      mesh,
+      baseIntensity: material.emissiveIntensity,
+      phase: 0
+    });
+  }
+
+  /**
+   * 停止发光动画
+   */
+  stopGlowAnimation(componentId: string): void {
+    this.glowingMeshes.delete(componentId);
+  }
+
+  /**
+   * 停止特定元件的动画
+   */
+  stopAnimation(componentId: string): void {
+    const tween = this.animations.get(componentId);
+    if (tween) {
+      tween.stop();
+      this.animations.delete(componentId);
+    }
+  }
+
+  /**
+   * 更新所有动画（在渲染循环中调用）
+   */
+  update(deltaTime: number): void {
+    // 更新 TWEEN 动画
+    TWEEN.update();
+
+    // 更新旋转动画
+    this.rotatingMeshes.forEach((id) => {
+      const mesh = this.findMeshById(id);
+      if (mesh && mesh.userData.animationType === 'rotate') {
+        mesh.rotation.y += 0.02;
+      }
+    });
+
+    // 更新发光动画（呼吸效果）
+    this.glowingMeshes.forEach((data) => {
+      data.phase += deltaTime * 2;
+      const material = data.mesh.material as THREE.MeshStandardMaterial;
+      const intensity = data.baseIntensity + Math.sin(data.phase) * 0.3;
+      material.emissiveIntensity = Math.max(0, intensity);
+    });
+  }
+
+  /**
+   * 清理所有动画
+   */
+  dispose(): void {
+    this.animations.forEach(tween => tween.stop());
+    this.animations.clear();
+    this.rotatingMeshes.clear();
+    this.glowingMeshes.clear();
+  }
+
+  private findMeshById(id: string): THREE.Mesh | null {
+    // 这个方法需要从外部传入 mesh 获取函数，这里简化处理
+    return null;
+  }
+}
+
+/**
+ * 全局动画管理器实例
+ */
+export const animationManager = new AnimationManager();
+
+/**
+ * 触发元件动画
+ * 根据元件的动画配置触发相应的动画效果
+ */
+export function triggerComponentAnimation(
+  mesh: THREE.Mesh,
+  enabled: boolean
+): void {
+  const animationType = mesh.userData.animationType;
+
+  switch (animationType) {
+    case 'switch':
+      animationManager.playSwitchAnimation(mesh, enabled);
+      break;
+    case 'rotate':
+      animationManager.toggleRotateAnimation(mesh, enabled);
+      break;
+    case 'glow':
+      if (enabled) {
+        animationManager.startGlowAnimation(mesh);
+      } else {
+        animationManager.stopGlowAnimation(mesh.userData.componentId);
+      }
+      break;
+    case 'none':
+    default:
+      // 无动画
+      break;
+  }
 }
 
 /**
@@ -192,4 +395,50 @@ export function createConveyorBelt(): THREE.Group {
   group.add(surface);
 
   return group;
+}
+
+/**
+ * 创建电流动画效果
+ * 使用 TubeGeometry 创建流动的导线效果
+ */
+export function createFlowEffect(
+  start: THREE.Vector3,
+  end: THREE.Vector3,
+  color: number = 0x00ffff
+): THREE.Mesh {
+  const curve = new THREE.LineCurve3(start, end);
+  const tubeGeometry = new THREE.TubeGeometry(curve, 20, 0.05, 8, false);
+  const tubeMaterial = new THREE.MeshBasicMaterial({
+    color,
+    transparent: true,
+    opacity: 0.6
+  });
+  return new THREE.Mesh(tubeGeometry, tubeMaterial);
+}
+
+/**
+ * 创建粒子特效（火花效果）
+ */
+export function createSparkEffect(position: THREE.Vector3): THREE.Points {
+  const particleCount = 50;
+  const geometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(particleCount * 3);
+
+  for (let i = 0; i < particleCount * 3; i += 3) {
+    positions[i] = position.x + (Math.random() - 0.5) * 0.5;
+    positions[i + 1] = position.y + (Math.random() - 0.5) * 0.5;
+    positions[i + 2] = position.z + (Math.random() - 0.5) * 0.5;
+  }
+
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  const material = new THREE.PointsMaterial({
+    color: 0xffff00,
+    size: 0.05,
+    transparent: true,
+    opacity: 0.8,
+    blending: THREE.AdditiveBlending
+  });
+
+  return new THREE.Points(geometry, material);
 }

@@ -1,4 +1,21 @@
 {
+  "categories": {
+    "power": {
+      "name": "主回路元件",
+      "components": ["QF1", "QF3", "KM1", "M1", "FU1", "TC1"],
+      "color": "#e74c3c"
+    },
+    "control": {
+      "name": "控制回路元件",
+      "components": ["QF2", "SB1", "SB2", "FR1", "KT1", "FU2", "EL1"],
+      "color": "#3498db"
+    },
+    "sensor": {
+      "name": "传感器与指示",
+      "components": ["SQ1", "SQ2", "HL1", "HL2", "XB1"],
+      "color": "#2ecc71"
+    }
+  },
   "components": [
     {
       "id": "QF1",
@@ -9,7 +26,27 @@
       "position": { "x": -5, "y": 0, "z": 0 },
       "geometry": { "type": "box", "width": 1, "height": 2, "depth": 0.5 },
       "color": "#3498db",
-      "schematicId": "sc-QF1"
+      "schematicId": "sc-QF1",
+      "category": "power",
+      "model": "DZ20-100",
+      "ratedCurrent": "100A",
+      "workingPrinciple": "断路器是一种能够闭合、承载和分断正常电路条件下的电流，并能在规定的非正常电路条件下（如短路）承载和分断电流的开关设备。",
+      "installationPosition": "配电柜主回路进线端",
+      "maintenancePeriod": "6个月",
+      "commonFaults": [
+        { "name": "触点烧蚀", "cause": "长期大电流通过", "solution": "更换触点或整个断路器" },
+        { "name": "机械卡阻", "cause": "内部机构老化或灰尘", "solution": "清洁或更换机构" }
+      ],
+      "safetySteps": [
+        "1. 切断上级电源",
+        "2. 使用验电器确认无电压",
+        "3. 挂牌上锁（LOTO）",
+        "4. 穿戴绝缘手套操作"
+      ],
+      "animationConfig": {
+        "hasAnimation": true,
+        "animationType": "switch"
+      }
     },
     {
       "id": "KM1",
@@ -20,7 +57,27 @@
       "position": { "x": -3, "y": 0, "z": 0 },
       "geometry": { "type": "box", "width": 0.8, "height": 1.5, "depth": 0.4 },
       "color": "#e74c3c",
-      "schematicId": "sc-KM1"
+      "schematicId": "sc-KM1",
+      "category": "power",
+      "model": "CJX2-1210",
+      "ratedCurrent": "12A",
+      "workingPrinciple": "接触器是利用电磁原理控制电路通断的电器，当线圈通电时产生磁场吸合衔铁，带动主触点闭合。",
+      "installationPosition": "配电柜控制回路",
+      "maintenancePeriod": "3个月",
+      "commonFaults": [
+        { "name": "触点粘连", "cause": "电弧烧蚀或负载过大", "solution": "更换触点或接触器" },
+        { "name": "线圈烧毁", "cause": "电压过高或线圈老化", "solution": "更换线圈" }
+      ],
+      "safetySteps": [
+        "1. 确认控制电源已断开",
+        "2. 检查触点磨损情况",
+        "3. 测试线圈电阻",
+        "4. 更换后进行通电测试"
+      ],
+      "animationConfig": {
+        "hasAnimation": true,
+        "animationType": "switch"
+      }
     },
     {
       "id": "M1",
@@ -31,7 +88,27 @@
       "position": { "x": 0, "y": 1, "z": 0 },
       "geometry": { "type": "cylinder", "radius": 1, "height": 2 },
       "color": "#95a5a6",
-      "schematicId": "sc-M1"
+      "schematicId": "sc-M1",
+      "category": "power",
+      "model": "YE3-112M-4",
+      "ratedCurrent": "5.8A",
+      "workingPrinciple": "三相异步电动机通过三相交流电产生旋转磁场，驱动转子旋转，将电能转化为机械能。",
+      "installationPosition": "传送带驱动端",
+      "maintenancePeriod": "每月",
+      "commonFaults": [
+        { "name": "电机过热", "cause": "负载过大或散热不良", "solution": "检查负载，清洁散热片" },
+        { "name": "轴承异响", "cause": "润滑不足或轴承磨损", "solution": "添加润滑脂或更换轴承" }
+      ],
+      "safetySteps": [
+        "1. 禁止在运行时触摸",
+        "2. 检修时必须断电挂牌",
+        "3. 等待电机完全停止后操作",
+        "4. 穿戴防护装备"
+      ],
+      "animationConfig": {
+        "hasAnimation": true,
+        "animationType": "rotate"
+      }
     },
     {
       "id": "SQ1",
@@ -42,7 +119,27 @@
       "position": { "x": 3, "y": 0.5, "z": 0 },
       "geometry": { "type": "cylinder", "radius": 0.3, "height": 0.8 },
       "color": "#2ecc71",
-      "schematicId": "sc-SQ1"
+      "schematicId": "sc-SQ1",
+      "category": "sensor",
+      "model": "EE-SX674",
+      "ratedCurrent": "20mA",
+      "workingPrinciple": "光电传感器通过发射红外光并检测反射光来判断物体是否存在，输出开关量信号。",
+      "installationPosition": "传送带检测点",
+      "maintenancePeriod": "每月",
+      "commonFaults": [
+        { "name": "检测失效", "cause": "镜头脏污或对偏", "solution": "清洁镜头或重新对准" },
+        { "name": "误触发", "cause": "灵敏度设置不当", "solution": "调整灵敏度电位器" }
+      ],
+      "safetySteps": [
+        "1. 断开传感器电源",
+        "2. 使用软布清洁镜头",
+        "3. 检查接线端子",
+        "4. 测试输出信号"
+      ],
+      "animationConfig": {
+        "hasAnimation": false,
+        "animationType": "none"
+      }
     },
     {
       "id": "QF2",
@@ -53,7 +150,430 @@
       "position": { "x": 5, "y": 0, "z": 0 },
       "geometry": { "type": "box", "width": 0.6, "height": 1.2, "depth": 0.3 },
       "color": "#f39c12",
-      "schematicId": "sc-QF2"
+      "schematicId": "sc-QF2",
+      "category": "control",
+      "model": "DZ47-63",
+      "ratedCurrent": "10A",
+      "workingPrinciple": "小型断路器用于控制回路的过载和短路保护，采用热脱扣和电磁脱扣双重保护。",
+      "installationPosition": "配电柜控制回路",
+      "maintenancePeriod": "6个月",
+      "commonFaults": [
+        { "name": "频繁跳闸", "cause": "过载或短路", "solution": "检查负载和绝缘" },
+        { "name": "无法合闸", "cause": "脱扣机构卡死", "solution": "复位或更换断路器" }
+      ],
+      "safetySteps": [
+        "1. 先断控制电，再断主电",
+        "2. 使用验电器确认断电",
+        "3. 挂警示牌",
+        "4. 禁止带电操作"
+      ],
+      "animationConfig": {
+        "hasAnimation": true,
+        "animationType": "switch"
+      }
+    },
+    {
+      "id": "SB1",
+      "name": "启动按钮",
+      "voltage": "24V",
+      "function": "启动设备运行",
+      "risk": "低压，安全操作",
+      "position": { "x": -6, "y": 0, "z": 1.5 },
+      "geometry": { "type": "cylinder", "radius": 0.2, "height": 0.3 },
+      "color": "#2ecc71",
+      "schematicId": "sc-SB1",
+      "category": "control",
+      "model": "LA22",
+      "ratedCurrent": "5A",
+      "workingPrinciple": "绿色常开按钮，按下时触点闭合，松开后自动复位断开。",
+      "installationPosition": "控制面板",
+      "maintenancePeriod": "每月",
+      "commonFaults": [
+        { "name": "按钮卡滞", "cause": "内部弹簧失效", "solution": "更换按钮组件" },
+        { "name": "触点接触不良", "cause": "氧化或烧蚀", "solution": "清洁或更换触点" }
+      ],
+      "safetySteps": [
+        "1. 确认设备状态正常",
+        "2. 观察周围无障碍物",
+        "3. 轻按启动按钮",
+        "4. 确认设备启动运行"
+      ],
+      "animationConfig": {
+        "hasAnimation": true,
+        "animationType": "switch"
+      }
+    },
+    {
+      "id": "SB2",
+      "name": "停止按钮",
+      "voltage": "24V",
+      "function": "紧急停止设备",
+      "risk": "低压，红色蘑菇头",
+      "position": { "x": -6, "y": 0, "z": 2 },
+      "geometry": { "type": "cylinder", "radius": 0.25, "height": 0.4 },
+      "color": "#e74c3c",
+      "schematicId": "sc-SB2",
+      "category": "control",
+      "model": "LA42",
+      "ratedCurrent": "5A",
+      "workingPrinciple": "红色常闭按钮，按下时触点断开，需要旋转复位。",
+      "installationPosition": "控制面板",
+      "maintenancePeriod": "每月",
+      "commonFaults": [
+        { "name": "无法复位", "cause": "锁定机构损坏", "solution": "更换按钮组件" },
+        { "name": "触点不分离", "cause": "触点熔焊", "solution": "更换触点或按钮" }
+      ],
+      "safetySteps": [
+        "1. 紧急情况立即按下",
+        "2. 确认设备停止后复位",
+        "3. 检查故障原因",
+        "4. 排除故障后方可重新启动"
+      ],
+      "animationConfig": {
+        "hasAnimation": true,
+        "animationType": "switch"
+      }
+    },
+    {
+      "id": "FR1",
+      "name": "热继电器",
+      "voltage": "220V",
+      "function": "电机过载保护",
+      "risk": "机械部件，注意触点",
+      "position": { "x": -4, "y": 0, "z": 0.5 },
+      "geometry": { "type": "box", "width": 0.5, "height": 0.8, "depth": 0.3 },
+      "color": "#f39c12",
+      "schematicId": "sc-FR1",
+      "category": "control",
+      "model": "JR36-20",
+      "ratedCurrent": "12A",
+      "workingPrinciple": "通过双金属片受热弯曲原理，当电流超过整定值时，双金属片弯曲推动触点断开控制回路。",
+      "installationPosition": "配电柜控制回路",
+      "maintenancePeriod": "3个月",
+      "commonFaults": [
+        { "name": "误动作", "cause": "整定值设置不当", "solution": "重新调整整定电流" },
+        { "name": "拒动", "cause": "双金属片失效", "solution": "更换热继电器" }
+      ],
+      "safetySteps": [
+        "1. 断开控制电源",
+        "2. 检查电机额定电流",
+        "3. 设置合适的整定值",
+        "4. 手动测试触点动作"
+      ],
+      "animationConfig": {
+        "hasAnimation": true,
+        "animationType": "switch"
+      }
+    },
+    {
+      "id": "KT1",
+      "name": "时间继电器",
+      "voltage": "220V",
+      "function": "延时控制",
+      "risk": "机械部件，注意触点",
+      "position": { "x": -4, "y": 0.5, "z": 1 },
+      "geometry": { "type": "box", "width": 0.4, "height": 0.7, "depth": 0.25 },
+      "color": "#9b59b6",
+      "schematicId": "sc-KT1",
+      "category": "control",
+      "model": "JS7-2A",
+      "ratedCurrent": "5A",
+      "workingPrinciple": "通过气囊或电子电路实现延时动作，用于控制电路的延时接通或断开。",
+      "installationPosition": "配电柜控制回路",
+      "maintenancePeriod": "3个月",
+      "commonFaults": [
+        { "name": "延时误差大", "cause": "气囊漏气或电容老化", "solution": "更换继电器" },
+        { "name": "触点不动作", "cause": "线圈烧毁或机械卡阻", "solution": "更换线圈或继电器" }
+      ],
+      "safetySteps": [
+        "1. 断开控制电源",
+        "2. 调整延时设定值",
+        "3. 测试延时准确性",
+        "4. 检查触点接触情况"
+      ],
+      "animationConfig": {
+        "hasAnimation": true,
+        "animationType": "switch"
+      }
+    },
+    {
+      "id": "EL1",
+      "name": "急停按钮",
+      "voltage": "24V",
+      "function": "紧急停止所有设备",
+      "risk": "黄色蘑菇头，紧急使用",
+      "position": { "x": -6, "y": 0, "z": 2.5 },
+      "geometry": { "type": "cylinder", "radius": 0.3, "height": 0.5 },
+      "color": "#f1c40f",
+      "schematicId": "sc-EL1",
+      "category": "control",
+      "model": "XB2",
+      "ratedCurrent": "5A",
+      "workingPrinciple": "急停按钮采用强制断开结构，按下后锁定，需要旋转解锁复位。",
+      "installationPosition": "控制面板显眼位置",
+      "maintenancePeriod": "每月",
+      "commonFaults": [
+        { "name": "无法解锁", "cause": "锁定机构损坏", "solution": "更换按钮组件" },
+        { "name": "触点不导通", "cause": "触点氧化", "solution": "清洁或更换触点" }
+      ],
+      "safetySteps": [
+        "1. 仅在紧急情况使用",
+        "2. 用力快速按下到底",
+        "3. 排除故障后旋转解锁",
+        "4. 确认解锁后方可重新启动"
+      ],
+      "animationConfig": {
+        "hasAnimation": true,
+        "animationType": "switch"
+      }
+    },
+    {
+      "id": "QF3",
+      "name": "辅助断路器",
+      "voltage": "380V",
+      "function": "辅助设备电源保护",
+      "risk": "高压，禁止带电操作",
+      "position": { "x": -5, "y": 0, "z": -1.5 },
+      "geometry": { "type": "box", "width": 0.8, "height": 1.5, "depth": 0.4 },
+      "color": "#3498db",
+      "schematicId": "sc-QF3",
+      "category": "power",
+      "model": "DZ20-63",
+      "ratedCurrent": "63A",
+      "workingPrinciple": "为辅助设备提供电源保护，原理同主断路器。",
+      "installationPosition": "配电柜辅助回路",
+      "maintenancePeriod": "6个月",
+      "commonFaults": [
+        { "name": "触点烧蚀", "cause": "长期大电流通过", "solution": "更换触点或整个断路器" },
+        { "name": "机械卡阻", "cause": "内部机构老化", "solution": "清洁或更换机构" }
+      ],
+      "safetySteps": [
+        "1. 切断上级电源",
+        "2. 使用验电器确认无电压",
+        "3. 挂牌上锁",
+        "4. 穿戴绝缘手套操作"
+      ],
+      "animationConfig": {
+        "hasAnimation": true,
+        "animationType": "switch"
+      }
+    },
+    {
+      "id": "TC1",
+      "name": "控制变压器",
+      "voltage": "380V/220V/24V",
+      "function": "提供控制电源",
+      "risk": "高压输入，低压输出",
+      "position": { "x": -5, "y": 0.5, "z": -0.5 },
+      "geometry": { "type": "box", "width": 0.7, "height": 1, "depth": 0.5 },
+      "color": "#e67e22",
+      "schematicId": "sc-TC1",
+      "category": "power",
+      "model": "BK-100",
+      "ratedCurrent": "4.5A",
+      "workingPrinciple": "通过电磁感应将380V电压转换为220V和24V，为控制回路和指示灯提供电源。",
+      "installationPosition": "配电柜变压器室",
+      "maintenancePeriod": "6个月",
+      "commonFaults": [
+        { "name": "无输出电压", "cause": "初级绕组烧毁或输入断电", "solution": "检查输入，更换变压器" },
+        { "name": "过热", "cause": "过载或散热不良", "solution": "检查负载，改善散热" }
+      ],
+      "safetySteps": [
+        "1. 确认输入电压已断开",
+        "2. 等待电容放电",
+        "3. 检查绝缘电阻",
+        "4. 测试输出电压"
+      ],
+      "animationConfig": {
+        "hasAnimation": false,
+        "animationType": "none"
+      }
+    },
+    {
+      "id": "FU1",
+      "name": "主熔断器",
+      "voltage": "380V",
+      "function": "短路保护",
+      "risk": "更换时可能带电",
+      "position": { "x": -4, "y": 0, "z": -1 },
+      "geometry": { "type": "cylinder", "radius": 0.15, "height": 0.6 },
+      "color": "#95a5a6",
+      "schematicId": "sc-FU1",
+      "category": "power",
+      "model": "RT14-20",
+      "ratedCurrent": "20A",
+      "workingPrinciple": "熔断器内的熔体在短路电流通过时迅速熔断，切断电路。",
+      "installationPosition": "配电柜主回路",
+      "maintenancePeriod": "按需",
+      "commonFaults": [
+        { "name": "熔体熔断", "cause": "短路或过载", "solution": "检查故障后更换熔体" },
+        { "name": "座接触不良", "cause": "氧化或松动", "solution": "清洁或紧固" }
+      ],
+      "safetySteps": [
+        "1. 必须断电操作",
+        "2. 确认无电压",
+        "3. 使用专用熔断器拔手",
+        "4. 更换相同规格熔体"
+      ],
+      "animationConfig": {
+        "hasAnimation": false,
+        "animationType": "none"
+      }
+    },
+    {
+      "id": "FU2",
+      "name": "控制熔断器",
+      "voltage": "220V",
+      "function": "控制回路短路保护",
+      "risk": "更换时可能带电",
+      "position": { "x": 5, "y": 0.3, "z": 0.5 },
+      "geometry": { "type": "cylinder", "radius": 0.12, "height": 0.5 },
+      "color": "#95a5a6",
+      "schematicId": "sc-FU2",
+      "category": "control",
+      "model": "RT14-6",
+      "ratedCurrent": "6A",
+      "workingPrinciple": "为控制回路提供短路保护，原理同主熔断器。",
+      "installationPosition": "配电柜控制回路",
+      "maintenancePeriod": "按需",
+      "commonFaults": [
+        { "name": "熔体熔断", "cause": "短路或过载", "solution": "检查故障后更换熔体" },
+        { "name": "座接触不良", "cause": "氧化或松动", "solution": "清洁或紧固" }
+      ],
+      "safetySteps": [
+        "1. 必须断电操作",
+        "2. 确认无电压",
+        "3. 使用专用熔断器拔手",
+        "4. 更换相同规格熔体"
+      ],
+      "animationConfig": {
+        "hasAnimation": false,
+        "animationType": "none"
+      }
+    },
+    {
+      "id": "HL1",
+      "name": "电源指示灯",
+      "voltage": "24V",
+      "function": "指示电源状态",
+      "risk": "低压，安全操作",
+      "position": { "x": -6, "y": 0.5, "z": 0 },
+      "geometry": { "type": "sphere", "radius": 0.15 },
+      "color": "#e74c3c",
+      "schematicId": "sc-HL1",
+      "category": "sensor",
+      "model": "AD16-22",
+      "ratedCurrent": "20mA",
+      "workingPrinciple": "LED指示灯通过发光二极管显示电源状态，红色表示电源接通。",
+      "installationPosition": "控制面板",
+      "maintenancePeriod": "每月",
+      "commonFaults": [
+        { "name": "不亮", "cause": "LED烧毁或断线", "solution": "更换指示灯或检查接线" },
+        { "name": "亮度不足", "cause": "限流电阻变值", "solution": "更换电阻或指示灯" }
+      ],
+      "safetySteps": [
+        "1. 确认控制电源状态",
+        "2. 断电检查接线",
+        "3. 测试LED是否损坏",
+        "4. 更换同规格指示灯"
+      ],
+      "animationConfig": {
+        "hasAnimation": true,
+        "animationType": "glow"
+      }
+    },
+    {
+      "id": "HL2",
+      "name": "运行指示灯",
+      "voltage": "24V",
+      "function": "指示设备运行状态",
+      "risk": "低压，安全操作",
+      "position": { "x": -6, "y": 0.5, "z": 0.5 },
+      "geometry": { "type": "sphere", "radius": 0.15 },
+      "color": "#2ecc71",
+      "schematicId": "sc-HL2",
+      "category": "sensor",
+      "model": "AD16-22",
+      "ratedCurrent": "20mA",
+      "workingPrinciple": "LED指示灯显示设备运行状态，绿色表示设备正在运行。",
+      "installationPosition": "控制面板",
+      "maintenancePeriod": "每月",
+      "commonFaults": [
+        { "name": "不亮", "cause": "LED烧毁或控制回路故障", "solution": "检查控制回路和指示灯" },
+        { "name": "常亮不熄", "cause": "控制回路故障", "solution": "检查控制继电器状态" }
+      ],
+      "safetySteps": [
+        "1. 确认设备实际状态",
+        "2. 检查控制回路",
+        "3. 测试指示灯是否损坏",
+        "4. 更换同规格指示灯"
+      ],
+      "animationConfig": {
+        "hasAnimation": true,
+        "animationType": "glow"
+      }
+    },
+    {
+      "id": "SQ2",
+      "name": "限位开关",
+      "voltage": "24V",
+      "function": "传送带终端检测",
+      "risk": "低压，安全操作",
+      "position": { "x": 3, "y": 0.5, "z": 1 },
+      "geometry": { "type": "box", "width": 0.3, "height": 0.4, "depth": 0.3 },
+      "color": "#2ecc71",
+      "schematicId": "sc-SQ2",
+      "category": "sensor",
+      "model": "HZ-12",
+      "ratedCurrent": "10mA",
+      "workingPrinciple": "机械式限位开关通过机械臂触动触点，用于检测物体位置或作为行程限制。",
+      "installationPosition": "传送带终端",
+      "maintenancePeriod": "每月",
+      "commonFaults": [
+        { "name": "触点不动作", "cause": "机械臂卡滞或触点氧化", "solution": "清洁或更换" },
+        { "name": "误触发", "cause": "安装位置偏移", "solution": "重新调整安装位置" }
+      ],
+      "safetySteps": [
+        "1. 断开传感器电源",
+        "2. 手动测试机械动作",
+        "3. 检查触点导通情况",
+        "4. 调整触发位置"
+      ],
+      "animationConfig": {
+        "hasAnimation": false,
+        "animationType": "none"
+      }
+    },
+    {
+      "id": "XB1",
+      "name": "接线端子排",
+      "voltage": "220V",
+      "function": "信号转接与分配",
+      "risk": "可能存在多组电压",
+      "position": { "x": 5, "y": 0.5, "z": 1 },
+      "geometry": { "type": "box", "width": 0.4, "height": 0.6, "depth": 0.2 },
+      "color": "#34495e",
+      "schematicId": "sc-XB1",
+      "category": "sensor",
+      "model": "UK2.5N",
+      "ratedCurrent": "24A",
+      "workingPrinciple": "端子排提供标准化的接线点，便于信号转接和线路分配。",
+      "installationPosition": "配电柜接线区",
+      "maintenancePeriod": "3个月",
+      "commonFaults": [
+        { "name": "接线松动", "cause": "振动或热胀冷缩", "solution": "重新紧固接线" },
+        { "name": "端子烧蚀", "cause": "接触不良或过电流", "solution": "更换端子" }
+      ],
+      "safetySteps": [
+        "1. 确认所有回路已断电",
+        "2. 使用万用表验电",
+        "3. 做好接线标记",
+        "4. 按规定扭矩紧固"
+      ],
+      "animationConfig": {
+        "hasAnimation": false,
+        "animationType": "none"
+      }
     }
   ],
   "quiz": [
@@ -64,22 +584,102 @@
       "targetId": "QF1",
       "options": ["220V", "380V", "24V", "12V"],
       "correctAnswer": 1,
-      "points": 10
+      "points": 10,
+      "explanation": "QF1 是主回路断路器，使用 380V 三相交流电为产线供电。",
+      "difficulty": "easy"
     },
     {
       "id": 2,
       "question": "点击图中负责检测电池包位置的传感器",
       "type": "click",
       "targetId": "SQ1",
-      "points": 15
+      "points": 15,
+      "explanation": "SQ1 是位置传感器，用于检测电池包在传送带上的位置。",
+      "difficulty": "easy"
     },
     {
       "id": 3,
       "question": "哪个元件存在高压操作风险？",
       "type": "choice",
-      "options": ["SQ1 传感器", "QF1 主断路器", "M1 电机"],
+      "options": ["SQ1 传感器", "QF1 主断路器", "SB1 启动按钮"],
       "correctAnswer": 1,
-      "points": 10
+      "points": 10,
+      "explanation": "QF1 主断路器工作在 380V 高压电路中，操作时必须严格遵守安全规范。",
+      "difficulty": "easy"
+    },
+    {
+      "id": 4,
+      "question": "热继电器 FR1 的主要作用是什么？",
+      "type": "choice",
+      "targetId": "FR1",
+      "options": ["短路保护", "过载保护", "漏电保护", "欠压保护"],
+      "correctAnswer": 1,
+      "points": 15,
+      "explanation": "热继电器通过双金属片受热弯曲原理实现过载保护，防止电机因长期过载而烧毁。",
+      "difficulty": "medium"
+    },
+    {
+      "id": 5,
+      "question": "急停按钮 EL1 应该使用什么颜色？",
+      "type": "choice",
+      "targetId": "EL1",
+      "options": ["绿色", "红色", "黄色", "蓝色"],
+      "correctAnswer": 2,
+      "points": 10,
+      "explanation": "急停按钮通常使用黄色蘑菇头，便于紧急情况下快速识别和操作。",
+      "difficulty": "easy"
+    },
+    {
+      "id": 6,
+      "question": "控制变压器 TC1 的输出电压是多少？",
+      "type": "choice",
+      "targetId": "TC1",
+      "options": ["380V/220V", "220V/24V", "380V/24V", "220V/12V"],
+      "correctAnswer": 1,
+      "points": 15,
+      "explanation": "TC1 将 380V 输入电压转换为 220V 和 24V，分别为控制回路和指示灯供电。",
+      "difficulty": "medium"
+    },
+    {
+      "id": 7,
+      "question": "时间继电器 KT1 的作用是什么？",
+      "type": "choice",
+      "targetId": "KT1",
+      "options": ["过载保护", "延时控制", "速度调节", "位置检测"],
+      "correctAnswer": 1,
+      "points": 10,
+      "explanation": "时间继电器用于实现控制电路的延时接通或断开，常用于启动顺序控制。",
+      "difficulty": "medium"
+    },
+    {
+      "id": 8,
+      "question": "哪个元件不属于控制回路？",
+      "type": "choice",
+      "options": ["SB1 启动按钮", "QF3 辅助断路器", "FR1 热继电器", "KT1 时间继电器"],
+      "correctAnswer": 1,
+      "points": 10,
+      "explanation": "QF3 是主回路的辅助断路器，属于主回路元件。SB1、FR1、KT1 都属于控制回路。",
+      "difficulty": "hard"
+    },
+    {
+      "id": 9,
+      "question": "点击绿色启动按钮 SB1",
+      "type": "click",
+      "targetId": "SB1",
+      "points": 15,
+      "explanation": "SB1 是绿色启动按钮，用于启动设备运行。",
+      "difficulty": "easy"
+    },
+    {
+      "id": 10,
+      "question": "黄色急停按钮 EL1 的操作特点是什么？",
+      "type": "choice",
+      "targetId": "EL1",
+      "options": ["按下自动复位", "按下锁定需旋转解锁", "长按才有效", "双击触发"],
+      "correctAnswer": 1,
+      "points": 10,
+      "explanation": "急停按钮采用强制断开结构，按下后会锁定，需要旋转解锁才能复位。",
+      "difficulty": "medium"
     }
   ]
 }

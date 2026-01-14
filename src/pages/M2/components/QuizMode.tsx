@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Card, Radio, Space, Typography, Statistic, Row, Col, message, Progress } from 'antd';
+import { Button, Card, Radio, Space, Typography, Statistic, Row, Col, message, Progress, Tag } from 'antd';
 import { ClockCircleOutlined, TrophyOutlined, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import type { Quiz, QuizState, ElectricalComponent } from '../types';
 

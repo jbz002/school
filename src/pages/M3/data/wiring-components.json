@@ -1,0 +1,168 @@
+{
+  "components": [
+    {
+      "id": "L1",
+      "name": "火线L1",
+      "type": "power",
+      "category": "input",
+      "position": { "x": 80, "y": 100 },
+      "terminals": [
+        {
+          "id": "L1-1",
+          "label": "L1",
+          "type": "source",
+          "position": { "x": 120, "y": 100 },
+          "visual": {
+            "radius": 10,
+            "hoverRadius": 14,
+            "color": "#e74c3c",
+            "hoverColor": "#ff7875"
+          }
+        }
+      ],
+      "color": "#e74c3c",
+      "icon": "⚡",
+      "visual": {
+        "width": 60,
+        "height": 40,
+        "terminalsVisible": true,
+        "symbolStyle": "standard",
+        "showShadow": true,
+        "cornerRadius": 6,
+        "borderWidth": 2,
+        "innerSymbol": "power"
+      }
+    },
+    {
+      "id": "QF1",
+      "name": "主断路器",
+      "type": "breaker",
+      "category": "protection",
+      "position": { "x": 200, "y": 100 },
+      "terminals": [
+        {
+          "id": "QF1-IN",
+          "label": "1",
+          "type": "input",
+          "position": { "x": 160, "y": 100 },
+          "visual": {
+            "radius": 9,
+            "hoverRadius": 13,
+            "color": "#1890ff",
+            "hoverColor": "#40a9ff"
+          }
+        },
+        {
+          "id": "QF1-OUT",
+          "label": "2",
+          "type": "output",
+          "position": { "x": 240, "y": 100 },
+          "visual": {
+            "radius": 9,
+            "hoverRadius": 13,
+            "color": "#52c41a",
+            "hoverColor": "#73d13d"
+          }
+        }
+      ],
+      "color": "#3498db",
+      "icon": "🔌",
+      "visual": {
+        "width": 80,
+        "height": 60,
+        "terminalsVisible": true,
+        "symbolStyle": "standard",
+        "showShadow": true,
+        "cornerRadius": 4,
+        "borderWidth": 2,
+        "innerSymbol": "switch"
+      }
+    },
+    {
+      "id": "KM1",
+      "name": "接触器",
+      "type": "contactor",
+      "category": "control",
+      "position": { "x": 400, "y": 100 },
+      "terminals": [
+        {
+          "id": "KM1-A1",
+          "label": "A1",
+          "type": "input",
+          "position": { "x": 360, "y": 100 },
+          "visual": {
+            "radius": 9,
+            "hoverRadius": 13,
+            "color": "#1890ff",
+            "hoverColor": "#40a9ff"
+          }
+        },
+        {
+          "id": "KM1-A2",
+          "label": "A2",
+          "type": "output",
+          "position": { "x": 440, "y": 100 },
+          "visual": {
+            "radius": 9,
+            "hoverRadius": 13,
+            "color": "#52c41a",
+            "hoverColor": "#73d13d"
+          }
+        }
+      ],
+      "color": "#e67e22",
+      "icon": "🔧",
+      "visual": {
+        "width": 80,
+        "height": 60,
+        "terminalsVisible": true,
+        "symbolStyle": "standard",
+        "showShadow": true,
+        "cornerRadius": 4,
+        "borderWidth": 2,
+        "innerSymbol": "coil"
+      }
+    },
+    {
+      "id": "M1",
+      "name": "电机",
+      "type": "motor",
+      "category": "load",
+      "position": { "x": 600, "y": 100 },
+      "terminals": [
+        {
+          "id": "M1-U",
+          "label": "U",
+          "type": "input",
+          "position": { "x": 550, "y": 100 },
+          "visual": {
+            "radius": 10,
+            "hoverRadius": 14,
+            "color": "#1890ff",
+            "hoverColor": "#40a9ff"
+          }
+        }
+      ],
+      "color": "#95a5a6",
+      "icon": "⚙️",
+      "visual": {
+        "width": 100,
+        "height": 80,
+        "terminalsVisible": true,
+        "symbolStyle": "standard",
+        "showShadow": true,
+        "cornerRadius": 8,
+        "borderWidth": 2,
+        "innerSymbol": "motor"
+      }
+    }
+  ],
+  "wires": {
+    "colors": ["#e74c3c", "#3498db", "#2ecc71", "#f39c12", "#9b59b6"],
+    "defaultColor": "#e74c3c",
+    "thickness": 3,
+    "style": "bezier",
+    "showArrow": false,
+    "showLabel": true
+  }
+}

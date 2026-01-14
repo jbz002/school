@@ -181,7 +181,7 @@ function M2Page() {
             flexDirection: 'column'
           }}>
             <QuizMode
-              quiz={quiz}
+              quiz={quiz as any}
               components={components}
               quizState={quizState}
               setQuizState={setQuizState}

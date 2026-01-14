@@ -1,0 +1,56 @@
+{
+  "rules": [
+    {
+      "id": "rule-1",
+      "name": "主回路接线规则",
+      "description": "L1 → QF1 → KM1 → M1",
+      "type": "sequence",
+      "required": true,
+      "connections": [
+        {
+          "from": "L1-1",
+          "to": "QF1-IN",
+          "type": "required"
+        },
+        {
+          "from": "QF1-OUT",
+          "to": "KM1-A1",
+          "type": "required"
+        },
+        {
+          "from": "KM1-A2",
+          "to": "M1-U",
+          "type": "required"
+        }
+      ],
+      "forbidden": [
+        {
+          "from": "L1-1",
+          "to": "M1-U",
+          "reason": "必须经过保护装置（断路器和接触器）"
+        },
+        {
+          "from": "QF1-IN",
+          "to": "QF1-OUT",
+          "reason": "短路危险！不能连接同一断路器的输入和输出端"
+        },
+        {
+          "from": "KM1-A1",
+          "to": "KM1-A2",
+          "reason": "短路危险！不能连接同一接触器的输入和输出端"
+        }
+      ],
+      "feedback": {
+        "success": "接线正确！主回路连接完成。电源经过断路器和接触器正确连接到电机。",
+        "partial": "继续完成剩余连接...",
+        "error": "接线错误，请检查连接。"
+      }
+    }
+  ],
+  "validation": {
+    "allowMultipleWires": false,
+    "allowCrossConnect": false,
+    "checkShortCircuit": true,
+    "checkPolarity": true
+  }
+}
