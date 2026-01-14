@@ -318,7 +318,7 @@ export class AnimationManager {
     this.glowingMeshes.clear();
   }
 
-  private findMeshById(id: string): THREE.Mesh | null {
+  private findMeshById(_id: string): THREE.Mesh | null {
     // 这个方法需要从外部传入 mesh 获取函数，这里简化处理
     return null;
   }

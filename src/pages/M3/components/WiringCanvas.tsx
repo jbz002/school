@@ -57,7 +57,7 @@ function WiringCanvas({
   const rafRef = useRef<number | null>(null);
 
   const [stageSize, setStageSize] = useState({ width: 800, height: 600 });
-  const [hoveredWireId, setHoveredWireId] = useState<string | null>(null);
+  const [hoveredWireId] = useState<string | null>(null);
 
   // 合并配置
   const {
@@ -68,10 +68,8 @@ function WiringCanvas({
 
   // 使用端子碰撞检测 Hook
   const {
-    findTerminalAt,
     checkHover,
-    hoveredTerminal,
-    findTerminalById
+    hoveredTerminal
   } = useTerminalHitTest(components, {
     clickThreshold,
     hoverThreshold,
@@ -111,7 +109,7 @@ function WiringCanvas({
   }, []);
 
   // 处理鼠标移动（使用 requestAnimationFrame 优化性能）
-  const handleMouseMove = useCallback((e: any) => {
+  const handleMouseMove = useCallback((_e: any) => {
     if (rafRef.current) {
       cancelAnimationFrame(rafRef.current);
     }
@@ -177,9 +175,9 @@ function WiringCanvas({
   }, [connections, removeConnection]);
 
   // 处理导线悬停
-  const handleWireHover = useCallback((wireId: string | null) => {
-    setHoveredWireId(wireId);
-  }, []);
+  // const handleWireHover = useCallback((wireId: string | null) => {
+  //   setHoveredWireId(wireId);
+  // }, []);
 
   // 清理 RAF
   useEffect(() => {

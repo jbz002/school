@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
-import { Button, Drawer, Radio, Space, Typography, message } from 'antd';
+import { useState } from 'react';
+import { Button, Radio, Space, Typography, message } from 'antd';
 import { ArrowLeftOutlined, EyeOutlined, EditOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import componentData from './data/electrical-components.json';
-import type { ElectricalComponent, PageMode, QuizState, QuizAttempt } from './types';
+import type { ElectricalComponent, PageMode, QuizState } from './types';
 import ProductionLine3D from './components/ProductionLine3D';
 import ElectricalSchematic from './components/ElectricalSchematic';
 import ComponentInfoDrawer from './components/ComponentInfoDrawer';
@@ -185,7 +185,6 @@ function M2Page() {
               components={components}
               quizState={quizState}
               setQuizState={setQuizState}
-              onComponentClick={handleComponentClick}
             />
           </div>
         )}

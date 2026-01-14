@@ -5,7 +5,7 @@
  */
 
 import type { Point } from './spatialHash';
-import type { Terminal, WireConnection } from '../types';
+import type { WireConnection } from '../types';
 
 /**
  * 导线样式类型
@@ -189,7 +189,7 @@ export function calculateWireMidpoint(
   from: Point,
   to: Point,
   path?: number[],
-  style: WireStyle = 'bezier'
+  _style: WireStyle = 'bezier'
 ): Point {
   if (path && path.length >= 4) {
     // 从路径中获取中间点
@@ -214,8 +214,8 @@ export function calculateWireMidpoint(
  * @returns 箭头位置和旋转角度
  */
 export function calculateWireArrow(
-  from: Point,
-  to: Point,
+  _from: Point,
+  _to: Point,
   path: number[],
   offset: number = 10
 ): { position: Point; rotation: number } {

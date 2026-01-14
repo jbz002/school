@@ -7,11 +7,11 @@ import { SpatialHashGrid, createSpatialHashGrid } from '../utils/spatialHash';
  */
 export interface HitTestConfig {
   /** 点击检测阈值（像素），默认 20 */
-  clickThreshold: number;
+  clickThreshold?: number;
   /** 悬停检测阈值（像素），默认 20 */
-  hoverThreshold: number;
+  hoverThreshold?: number;
   /** 空间哈希网格单元大小（像素），默认 50 */
-  cellSize: number;
+  cellSize?: number;
 }
 
 /**

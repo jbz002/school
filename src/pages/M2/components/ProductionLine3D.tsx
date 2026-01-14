@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import type { ElectricalComponent } from '../types';
 import { useThreeScene } from '../hooks/useThreeScene';
 import { useRaycasterIntegration } from '../hooks/useRaycaster';

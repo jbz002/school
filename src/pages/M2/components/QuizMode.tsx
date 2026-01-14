@@ -10,10 +10,9 @@ interface QuizModeProps {
   components: ElectricalComponent[];
   quizState: QuizState;
   setQuizState: React.Dispatch<React.SetStateAction<QuizState>>;
-  onComponentClick: (component: ElectricalComponent) => void;
 }
 
-function QuizMode({ quiz, components, quizState, setQuizState, onComponentClick }: QuizModeProps) {
+function QuizMode({ quiz, components, quizState, setQuizState }: QuizModeProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
 

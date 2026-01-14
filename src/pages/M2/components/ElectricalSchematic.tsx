@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { ElectricalComponent } from '../types';
 
 interface ElectricalSchematicProps {
@@ -8,7 +8,6 @@ interface ElectricalSchematicProps {
 }
 
 function ElectricalSchematic({ components, onComponentClick, highlightedId }: ElectricalSchematicProps) {
-  const svgRef = useRef<SVGSVGElement>(null);
   const [hotspots, setHotspots] = useState<Array<{ id: string; x: number; y: number; width: number; height: number }>>([]);
 
   useEffect(() => {
@@ -46,7 +45,6 @@ function ElectricalSchematic({ components, onComponentClick, highlightedId }: El
     >
       {/* SVG 电气图 */}
       <img
-        ref={svgRef}
         src="/electrical-schematic.svg"
         alt="电气原理图"
         style={{

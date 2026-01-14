@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import type { ElectricalComponent } from '../types';
 import {
   setupScene,
@@ -30,7 +30,7 @@ interface UseThreeSceneReturn {
  * 负责初始化场景、渲染循环、事件处理
  */
 export function useThreeScene(params: UseThreeSceneParams): UseThreeSceneReturn {
-  const { containerRef, components, onComponentClick, highlightedId } = params;
+  const { containerRef, components, highlightedId } = params;
 
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
